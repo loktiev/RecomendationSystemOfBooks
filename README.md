@@ -15,7 +15,7 @@ cd RecomendationSystemOfBooks
 
 2. (Recommended) Create and activate a virtual environment:
 ```bash
-conda create -n recsys python=3.10 -y
+conda create -n recsys python=3.12 -y
 conda activate recsys
 ```
 
@@ -52,6 +52,11 @@ RecomendationSystemOfBooks/
 - ✅ `lightfm` and `nmslib` are **no longer required** for app deployment.
 - ✅ Uses `scikit-learn`'s `NearestNeighbors` with precomputed vectors (`item_embeddings.pkl`).
 - ✅ Compatible with deployment on **Streamlit Cloud** using a minimal `requirements.txt`.
+- ✅ Python **3.12** is supported. Make sure dependencies are up to date:
+  - `numpy>=1.24,<2.0`
+  - `scikit-learn>=1.3`
+  - `scipy>=1.10`
+  - `pandas>=1.5`
 
 ---
 
