@@ -1,7 +1,7 @@
 # README.md for RecomendationSystemOfBooks
 
 ## 📚 RecomendationSystemOfBooks
-A basic recommendation system using LightFM and NMSLIB. This project demonstrates hybrid collaborative filtering on a small dataset.
+A basic recommendation system using **precomputed LightFM embeddings** and **NMSLIB** for fast nearest-neighbor search. This project demonstrates hybrid collaborative filtering on a small dataset.
 
 ---
 
@@ -23,12 +23,13 @@ conda env create -f environment.yml
 conda activate recsys
 ```
 
-4. Install LightFM and NMSLIB manually (precompiled):
+4. Install NMSLIB manually (precompiled):
 ```bash
-pip install path\to\lightfm‑1.17‑cp310‑cp310‑win_amd64.whl
 pip install path\to\nmslib‑2.1.1‑cp310‑cp310‑win_amd64.whl
 ```
 > Download precompiled wheels from: https://www.lfd.uci.edu/~gohlke/pythonlibs/
+
+⚠️ LightFM is **not required** for running the app as it uses pre-trained embeddings stored in `item_embeddings.pkl`.
 
 ---
 
@@ -39,7 +40,7 @@ pip install path\to\nmslib‑2.1.1‑cp310‑cp310‑win_amd64.whl
 streamlit run app.py
 ```
 
-### Run LightFM + NMSLIB script:
+### Run NMSLIB test script (optional):
 ```bash
 python Ex2.py
 ```
@@ -51,17 +52,19 @@ You should see a message: `✅ LightFM and NMSLIB are working!`
 ```
 RecomendationSystemOfBooks/
 ├── app.py                  # Streamlit interface
-├── Ex2.py                  # Test script for LightFM + NMSLIB
+├── Ex2.py                  # Optional test script for NMSLIB
 ├── environment.yml         # Conda environment definition
 ├── requirements.txt        # Optional pip-only fallback
+├── item_embeddings.pkl     # Precomputed embeddings
 └── README.md               # Project overview (this file)
 ```
 
 ---
 
 ## 🛠 Notes
-- `scipy` and `backports.zoneinfo` were removed due to known compatibility issues with Python 3.10 + Conda.
-- LightFM and NMSLIB are C++ extensions — install them from prebuilt wheels.
+- `lightfm` is not used in production. You can remove it unless retraining is needed.
+- `nmslib` is required and must be installed manually on Windows from prebuilt wheels.
+- If using Streamlit Cloud, add `nmslib` and other dependencies into `requirements.txt` accordingly.
 
 ---
 

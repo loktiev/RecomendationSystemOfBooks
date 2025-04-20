@@ -5,7 +5,7 @@ warnings.filterwarnings("ignore")
 import streamlit as st
 import numpy as np
 import pandas as pd
-import lightfm as lf
+#import lightfm as lf
 import nmslib
 import pickle
 import scipy.sparse as sparse
