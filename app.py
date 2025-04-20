@@ -6,7 +6,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 #import lightfm as lf
-import nmslib
+#import nmslib
+from sklearn.neighbors import NearestNeighbors
 import pickle
 import scipy.sparse as sparse
 import plotly.express as px
@@ -14,7 +15,7 @@ import plotly.express as px
 # -----------------------------------------------------------------------------------------------------
 # Реализуем функции необходимые для работы приложения
 
-@st.cache
+@st.cache_data
 def read_files(folder_name='data'):
     """
     Функция для чтения файлов.
@@ -37,26 +38,28 @@ def make_mappers(books):
     return name_mapper, author_mapper
 
 def load_embeddings(file_name='item_embeddings.pkl'):
-    """
-    Функция для загрузки векторных представлений.
-    Возвращает прочитанные эмбеддинги книг и индекс (граф) для поиска похожих книг.
-    """
     with open(file_name, 'rb') as f:
         item_embeddings = pickle.load(f)
 
-    # Тут мы используем nmslib, чтобы создать наш быстрый knn
-    nms_idx = nmslib.init(method='hnsw', space='cosinesimil')
-    nms_idx.addDataPointBatch(item_embeddings)
-    nms_idx.createIndex(print_progress=True)
-    return item_embeddings, nms_idx
+    nn_model = NearestNeighbors(metric='cosine')
+    nn_model.fit(item_embeddings)
+    return item_embeddings, nn_model
+
 
 def nearest_books_nms(book_id, index, n=10):
-    """
-    Функция для поиска ближайших соседей, возвращает построенный индекс.
-    Возвращает n наиболее похожих книг и расстояние до них.
-    """
-    nn = index.knnQuery(item_embeddings[book_id], k=n)
-    return nn
+    # Ensure we're passing a 2D array with the correct shape
+    book_id_int = book_id[0] if isinstance(book_id, (np.ndarray, list)) else book_id
+    vector = item_embeddings[book_id_int].reshape(1, -1)
+    distances, indices = index.kneighbors(vector, n_neighbors=n)
+    return indices[0], distances[0]
+
+
+def nearest_books_nms(book_id, index, n=10):
+    # Ensure we're passing a 2D array with the correct shape
+    book_id_int = book_id[0] if isinstance(book_id, (np.ndarray, list)) else book_id
+    vector = item_embeddings[book_id_int].reshape(1, -1)
+    distances, indices = index.kneighbors(vector, n_neighbors=n)
+    return indices[0], distances[0]
 
 def get_recomendation_df(ids, distances, name_mapper, author_mapper):
     """
