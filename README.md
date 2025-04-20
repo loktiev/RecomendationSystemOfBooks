@@ -28,7 +28,7 @@ pip install -r requirements.txt
 
 ## ▶️ Usage
 
-### Run Streamlit web app:
+To run the Streamlit web app locally:
 ```bash
 streamlit run app.py
 ```
@@ -41,17 +41,17 @@ RecomendationSystemOfBooks/
 ├── app.py                  # Streamlit interface
 ├── environment.yml         # Optional Conda environment definition
 ├── requirements.txt        # Pip dependencies
-├── item_embeddings.pkl     # Precomputed embeddings
+├── item_embeddings.pkl     # Precomputed item embeddings
 ├── data/                   # Ratings and books CSV files
-└── README.md               # Project overview (this file)
+└── README.md               # Project overview
 ```
 
 ---
 
 ## 🛠 Notes
-- `lightfm` and `nmslib` are **no longer required** for app deployment.
-- The application uses precomputed item embeddings (`item_embeddings.pkl`) and Scikit-learn's `NearestNeighbors` for similarity search.
-- You can deploy this app on Streamlit Cloud with a clean and simple requirements setup.
+- ✅ `lightfm` and `nmslib` are **no longer required** for app deployment.
+- ✅ Uses `scikit-learn`'s `NearestNeighbors` with precomputed vectors (`item_embeddings.pkl`).
+- ✅ Compatible with deployment on **Streamlit Cloud** using a minimal `requirements.txt`.
 
 ---
 
