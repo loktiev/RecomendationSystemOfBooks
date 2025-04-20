@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VS Code settings
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environments
+.env
+.venv
+env/
+venv/
+recsys/
+
+# Conda environment file backups
+conda-meta/
+*.conda
+*.egg-info/
+*.egg
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Data & models (optional: keep if you want to version them!)
+data/
+*.csv
+*.tsv
+*.json
+*.pkl
+*.h5
+*.db
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python Wheels
+*.whl
+
+# Compiled C extensions
+*.so
+*.dll
+*.dylib
+
+# Backup files
+*.bak
+*.tmp
+*.swp
+
+# MyPy & Pyright
+.mypy_cache/
+.pyright/
+
+# Pytest
+.pytest_cache/
+.cache/
+htmlcov/
+
+# Ignore environment.yml.lock if using lockfiles
+environment.yml.lock
